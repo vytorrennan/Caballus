@@ -1,10 +1,10 @@
 from django.db import models
 
 class sampleSoil(models.Model):
-    sample = models.IntergerField(max=200)
+    sample = models.FloatField(blank=True)
     ph = models.FloatField(blank=True)
     organicMaterial = models.FloatField(blank=True)
-    phosporo = models.FLoatField(blank=True)
+    phosporo = models.FloatField(blank=True)
     potassium = models.FloatField(blank=True)
     na = models.FloatField(blank=True)
     ca = models.FloatField(blank=True)
