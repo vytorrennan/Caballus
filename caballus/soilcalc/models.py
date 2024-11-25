@@ -21,3 +21,18 @@ class sampleSoil(models.Model):
     claySilt = models.FloatField(blank=True, null=True)
     clay = models.FloatField(blank=True, null=True)
 
+class standardCurves(models.Model):
+    curveName = models.CharField()
+    stage1 = models.FloatField(blank=True, null=True)
+    stage2 = models.FloatField(blank=True, null=True)
+    stage3 = models.FloatField(blank=True, null=True)
+    stage4 = models.FloatField(blank=True, null=True)
+    stage5 = models.FloatField(blank=True, null=True)
+    stage6 = models.FloatField(blank=True, null=True)
+
+
+
+
+
+
+
