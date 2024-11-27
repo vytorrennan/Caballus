@@ -1,7 +1,8 @@
+from contextlib import nullcontext
 from django.db import models
 
 class sampleSoil(models.Model):
-    sample = models.FloatField(blank=True, null=True)
+    sample = models.AutoField(primary_key =True)
     ph = models.FloatField(blank=True, null=True)
     organicMaterial = models.FloatField(blank=True, null=True)
     phosporo = models.FloatField(blank=True, null=True)
