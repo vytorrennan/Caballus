@@ -10,18 +10,21 @@ from .models import sampleSoil
 def view_sample(request):
     sample = None
     sample_id = None
+    ph = None
     if request.method == 'POST':
         sample_id = request.POST.get('sample_id')
         if sample_id:
             try:
                 sample = sampleSoil.objects.get(sample=sample_id)
+                ph = ph_calculations.calculate_soil_ph(sample.ca, sample.mg)
             except: 
                 sample = None
-    #ph_calculations(sample.)
-
     context = {
-        'sample_id': sample_id, 
-        "sample": sample.__dict__ if sample else None }
+        'sample_id': sample_id,
+        'sample': sample.__dict__ if sample else None,
+        'ph': ph
+    }
 
     return render(request, "soilcalc/index.html", context)
+
 
