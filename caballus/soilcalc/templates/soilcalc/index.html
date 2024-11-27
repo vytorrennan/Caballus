@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoilCalc Página</title>
+</head>
+
+<body>
+  <h1>Samples</h1>
+  <form method="post" autocomplete="off">
+    {% csrf_token %}
+    <label>Wirite a ID</label>
+    <input name="sample_id" type="number" value="" required>
+    <button type="submit">Search</button>
+  </form>
+  {% if sample_id and sample != None %}
+  <p> Amostra: {{sample_id}} </p>
+  {% else %}
+  <p>Sample not in data base</p>
+  {% endif %}
+  <ul>
+    {% for element, value in sample.items %}
+    <li><strong>{{ element }}</strong> {{value}} </li>
+    {% endfor %}
+  </ul>
+</body>
+
+</html>
