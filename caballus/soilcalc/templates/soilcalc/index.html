@@ -25,6 +25,16 @@
     <li><strong>{{ element }}</strong> {{value}} </li>
     {% endfor %}
   </ul>
+	<h1>Factor_correction</h1>
+    <form method="post" autocomplete="off">
+    {% csrf_token %}
+    <label>Wirite a ID</label>
+    <input name="name_factor" type="text" value="" required>
+    <input name="witness" type="number" value="" required>
+    <input name="value_reference" type="number" value="" required>
+
+    <button type="submit">Search</button>
+	</form>
 </body>
 
 </html>
