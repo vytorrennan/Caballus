@@ -1,39 +1,52 @@
-from contextlib import nullcontext
+from typing import DefaultDict
 from django.db import models
+from django.contrib.auth.models import User 
+from django.utils.timezone import now
+
+class batch(models.Model):
+    id = models.IntegerField(primary_key=True, default=None) # Nome do lote ex : 317-340 
+
 
 class sampleSoil(models.Model):
-    sample = models.AutoField(primary_key =True)
-    ph = models.FloatField(blank=True, null=True)
-    organicMaterial = models.FloatField(blank=True, null=True)
-    phosporo = models.FloatField(blank=True, null=True)
-    potassium = models.FloatField(blank=True, null=True)
-    na = models.FloatField(blank=True, null=True)
-    ca = models.FloatField(blank=True, null=True)
-    mg = models.FloatField(blank=True, null=True)
-    al = models.FloatField(blank=True, null=True)
-    hAl = models.FloatField(blank=True, null=True)
-    cu = models.FloatField(blank=True, null=True)
-    fe = models.FloatField(blank=True, null=True)
-    mn = models.FloatField(blank=True, null=True)
-    zn = models.FloatField(blank=True, null=True)
-    pRem = models.FloatField(blank=True, null=True)
-    emptyBecker1 = models.FloatField(blank=True, null=True)
-    emptyBecker2 = models.FloatField(blank=True, null=True)
-    claySilt = models.FloatField(blank=True, null=True)
-    clay = models.FloatField(blank=True, null=True)
+    id = models.IntegerField(primary_key=True, default=None)
+    created_at = models.DateField(default=now)
+
+    batch_id = models.ForeignKey(
+        batch,
+        on_delete= models.CASCADE,
+        default = None,
+        null=True,  # Permitir valores nulos, se necessário
+        blank=True,
+    )
+    user_id = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE, #atributo só para teste remover depois
+        default = None,
+        null=True,  # Permitir valores nulos, se necessário
+        blank=True,
+    )
+
+class element(models.Model):
+    id = models.AutoField(primary_key=True, default=None)
+    name = models.CharField(max_length=20)
+    value = models.FloatField(blank=True, null=True)
+
+    sampleSoil_id = models.ForeignKey(
+        sampleSoil, 
+        on_delete = models.CASCADE, # remover 
+        default = None,
+        blank = True,
+        null = True
+    )
 
 class standardCurves(models.Model):
-    curveName = models.CharField()
-    stage1 = models.FloatField(blank=True, null=True)
-    stage2 = models.FloatField(blank=True, null=True)
-    stage3 = models.FloatField(blank=True, null=True)
-    stage4 = models.FloatField(blank=True, null=True)
-    stage5 = models.FloatField(blank=True, null=True)
-    stage6 = models.FloatField(blank=True, null=True)
-
-
-
-
-
-
-
+    curve_element = models.CharField(primary_key=True, default=None)
+    value = models.FloatField(blank=True, null=True)
+    bath_id = models.ForeignKey(
+        batch,
+        on_delete = models.CASCADE,
+        default = None,
+        blank = True, 
+        null =True 
+    )
+    

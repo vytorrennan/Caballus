@@ -1,12 +1,14 @@
 from django.contrib import admin
-from .models import (sampleSoil, standardCurves)
+from django.contrib.auth.models import User
+from .models import (batch , sampleSoil, element, standardCurves)
+from soilcalc import models
+
 # Register your models here.
 #
-#para que eu veja esta informações na pagina de admin
-class SampleSoilAdmin(admin.ModelAdmin):
-    list_display = ('sample', 'ph', 'organicMaterial', 'phosporo', 'potassium')
+#
 
 
-
-admin.site.register(sampleSoil, SampleSoilAdmin)
+admin.site.register(batch)
+admin.site.register(sampleSoil)
+admin.site.register(element)
 admin.site.register(standardCurves)
