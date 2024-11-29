@@ -1,0 +1,130 @@
+/* File: tables.css */
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  /* Tom pastel claro */
+  color: #333;
+  /* Texto em cinza escuro */
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Título principal */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #4a4a4a;
+  /* Tom pastel médio */
+  margin-bottom: 20px;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+form label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+form input {
+  width: 50%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+form button {
+  background-color: #add8e6;
+  /* Azul pastel */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #87cefa;
+  /* Azul um pouco mais escuro */
+}
+
+ul {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+  max-width: 100%;
+  /* Remover restrição fixa de largura */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* Grid com 5 colunas */
+  gap: 10px;
+  /* Espaço entre os itens */
+}
+
+ul li {
+  background-color: #ffffff;
+  /* Fundo branco */
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+}
+
+/* Mensagens */
+p {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #555;
+}
+
+.ph {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #4a90e2;
+  /* Azul pastel */
+  text-align: center;
+  margin-top: 20px;
+}
+
+/*Tentativa de  Responsividade */
+@media (max-width: 768px) {
+  form input {
+    width: 80%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  ul li {
+    font-size: 0.9rem;
+  }
+
+  form button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}
