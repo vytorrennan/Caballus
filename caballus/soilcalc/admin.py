@@ -11,4 +11,9 @@ from soilcalc import models
 admin.site.register(batch)
 admin.site.register(sampleSoil)
 admin.site.register(element)
-admin.site.register(standardCurves)
+
+
+#para que eu veja esta informações na pagina de admin
+#Ex: class SampleSoilAdmin(admin.ModelAdmin):
+    #list_display = ('sample', 'ph', 'organicMaterial', 'phosporo', 'potassium')
+#admin.site.register(sampleSoil, SampleSoilAdmin)

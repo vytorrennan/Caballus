@@ -7,6 +7,7 @@
   <title>SoilCalc Página</title>
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/tables.css' %}">
+
 </head>
 
 <body>
@@ -28,6 +29,19 @@
     {% endfor %}
   </ul>
   <p class='ph'>Ph Estimado: {{ph}}</p>
+
+	<h1>Factor_correction</h1>
+    <form method="post" autocomplete="off">
+    {% csrf_token %}
+    <label>Wirite a ID</label>
+    <input name="name_factor" type="text" value="" required>
+    <input name="witness" type="number" value="" required>
+    <input name="value_reference" type="number" value="" required>
+
+    <button type="submit">Search</button>
+	</form>
+
+
 </body>
 
 </html>

@@ -10,4 +10,3 @@ def calculate_soil_ph(concentration_ca, concentration_mg):
     # Cálculo do pH estimado
     ph = a * concentration_ca + b * concentration_mg + c
     return ph
-
