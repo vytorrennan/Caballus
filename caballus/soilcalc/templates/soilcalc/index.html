@@ -1,23 +1,28 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
+{% load static %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SoilCalc Página</title>
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/tables.css' %}">
+  {% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/tables.css' %}?{% now "U" %}">{% endblock %}
 
-</head>
 
-<body>
+
+{% block title %}
+  Search Samples and Baths
+{% endblock %}
+
+{% block content %}
   <h1>Samples</h1>
-  <form method="post" autocomplete="off">
+  <form method="post" autocomplete="off" action="http://localhost:8000/soilcalc/calc/batch/">
     {% csrf_token %}
-    <label>Wirite a ID</label>
-    <input name="sample_id" type="number" value="" required>
+      <label for="search_table">Escolha uma opção:</label>
+        <select id="search_table" name="search_table">
+          <option value="--"> -- </option>
+          <option value="batch">Batch</option>
+          <option value="sampleSoil">Samples</option>
+        </select>
     <button type="submit">Search</button>
   </form>
+
+
   {% if sample_id and sample != None %}
   <p> Amostra: {{sample_id}} </p>
   {% else %}
@@ -28,7 +33,6 @@
     <li><strong>{{ element }}:</strong> {{value}} </li>
     {% endfor %}
   </ul>
-  <p class='ph'>Ph Estimado: {{ph}}</p>
 
 	<h1>Factor_correction</h1>
     <form method="post" autocomplete="off">
@@ -41,7 +45,5 @@
     <button type="submit">Search</button>
 	</form>
 
-
-</body>
-
-</html>
+{% endblock content %}
+ 

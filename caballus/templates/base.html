@@ -5,18 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{% block title %}Meu Projeto Django{% endblock %}</title>
+  <title>{% block title %}Caballus{% endblock %}</title>
   <!-- css -->
-  <link rel="stylesheet" href="static/base.css">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}?{% now "U" %}">
+  {% block extra_css %}{% endblock %}
+
+
 </head>
 
 <body>
   <header>
-    <nav>
+    <nav id="navbar">
       <ul>
-        <li>Sample</li>
-        <li>Bath</li>
-        <li>Teste</li>
+        <li>Home</li>
+        <li>Search</li>
+        <li>About</li>
       </ul>
     </nav>
   </header>
