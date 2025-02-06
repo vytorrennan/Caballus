@@ -26,7 +26,7 @@ def calculaP_branco(bateladaP_branco,fatorP_branco):
         return None
 
 #AD19(P) - Para Batelada Testemunha
-def calculate_P(fatorP_branco, bateladaP_branco,batelada_valor):
+def calculaP(fatorP_branco, bateladaP_branco,batelada_valor):
     if batelada_valor == None:
         return None
     try:
@@ -46,7 +46,7 @@ def calculaK_branco(bateladaK_branco,fatorK_branco):
 
 
 #AE19(K) - Para Batelada Testemunha
-def calculate_P(fatorK_branco, bateladaK_branco,batelada_valor):
+def calculaK(fatorK_branco, bateladaK_branco, batelada_valor):
     if batelada_valor == None:
         return None
     try:
@@ -54,3 +54,39 @@ def calculate_P(fatorK_branco, bateladaK_branco,batelada_valor):
         return resultado
     except:
         return None
+    
+    
+#AF18(Na) - Para Batelada Branco    
+def calculaNa_branco(bateladaNa_branco, fatorNa_branco):
+    try:
+        resultado = (((bateladaNa_branco * fatorNa_branco)(50*5))/230)
+        return resultado
+    except:
+        return None
+    
+#AF18(Na) - Para Batelada Testemunha    
+def calculaNa_branco(bateladaNa_branco, fatorNa_branco, batelada_valor):
+    try:
+        resultado = ((((batelada_valor - bateladaNa_branco) * fatorNa_branco)*(50*5))/230)
+        return resultado
+    except:
+        return None
+   
+    
+#AG18(Ca) - Para Batelada Branco
+def calculaCa_branco(bateladaCa_branco):    
+    try:
+        resultado = ((bateladaCa_branco * (50*10))/(5*1*200))
+        return resultado
+    except:
+        return None
+
+#AG19(Ca) - Para Batelada Testemunha
+def calculaCa(bateladaCa_branco, batelada_valor ):    
+    try:
+        resultado = (((batelada_valor - bateladaCa_branco) * (50*10))/(5*1*200))
+        return resultado
+    except:
+        return None
+    
+

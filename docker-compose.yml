@@ -3,9 +3,21 @@ services:
     build: ./caballus
     expose:
       - "8000"
-  # Run server
+    # Run server
     entrypoint: ["/bin/bash", "./scripts/caballus.sh"]
+    # Start app
+    # command: "uv run manage.py startapp loginSystem"
+    #
+    # watch config
+    # develop:
+    #   watch:
+    #     - action: sync
+    #       path: ./caballus
+    #       target: /caballus
+    #       ignore:
+    #         - .venv/
     volumes:
+      - venv:/caballus/.env
       - ./caballus:/caballus
     ports:
       - "8000:8000"
@@ -22,4 +34,5 @@ services:
       - db:/var/lib/postgresql/data
 
 volumes:
+  venv:
   db:
