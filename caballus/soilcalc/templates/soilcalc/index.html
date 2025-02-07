@@ -10,8 +10,10 @@
 {% endblock %}
 
 {% block content %}
+  
   <h1>Samples</h1>
-  <form method="post" autocomplete="off" action="http://localhost:8000/soilcalc/calc/batch/">
+
+  <form method="post" autocomplete="off" >
     {% csrf_token %}
       <label for="search_table">Escolha uma opção:</label>
         <select id="search_table" name="search_table">
@@ -23,27 +25,21 @@
   </form>
 
 
-  {% if sample_id and sample != None %}
-  <p> Amostra: {{sample_id}} </p>
+  {{ option }}
+  {{ table }}
+
+  {% if option != "--" and  table != None %}
+
+  <h2> Bateladas </h2>
   {% else %}
-  <p>Sample not in data base</p>
+  <p>Opção não encontrada</p>
   {% endif %}
   <ul>
-    {% for element, value in sample.items %}
-    <li><strong>{{ element }}:</strong> {{value}} </li>
+    {% for table  in table %}
+    <li><p>Batelada: </p><strong>{{ table }}</li>
     {% endfor %}
   </ul>
 
-	<h1>Factor_correction</h1>
-    <form method="post" autocomplete="off">
-    {% csrf_token %}
-    <label>Wirite a ID</label>
-    <input name="name_factor" type="text" value="" required>
-    <input name="witness" type="number" value="" required>
-    <input name="value_reference" type="number" value="" required>
 
-    <button type="submit">Search</button>
-	</form>
-
-{% endblock content %}
+  {% endblock content %}
  
