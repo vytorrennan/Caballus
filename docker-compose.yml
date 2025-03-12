@@ -17,7 +17,7 @@ services:
     #       ignore:
     #         - .venv/
     volumes:
-      - venv:/caballus/.venv
+      - venv:/caballus/.env
       - ./caballus:/caballus
     ports:
       - "8000:8000"

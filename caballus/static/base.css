@@ -1,0 +1,148 @@
+:root {
+  --color-background: #f9f9f9;
+  --color-text: #333;
+  --color-heading: #4a4a4a;
+  --color-label: #555;
+  --color-input-border: #ccc;
+  --color-button-bg: #add8e6;
+  --color-button-hover-bg: #87cefa;
+  --color-link: #4a90e2;
+  --color-card-bg: #ffffff;
+  --color-card-border: #ddd;
+  --color-highlight: #4a90e2;
+  --padding-base: 20px;
+  --border-radius: 5px;
+  --font-family: 'Arial, sans-serif';
+}
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Navbar */
+
+#navbar {
+  background-color: var(--color-card-bg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+#navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#navbar li {
+  margin: 0 15px;
+}
+
+#navbar a {
+  color: var(--color-link);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+  border-radius: var(--border-radius);
+}
+
+#navbar a:hover {
+  background-color: var(--color-highlight);
+  color: var(--color-card-bg);
+  transform: scale(1.05);
+}
+
+/* Título principal */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--color-heading);
+  margin-bottom: var(--padding-base);
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--padding-base);
+}
+
+form label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--color-label);
+}
+
+form input {
+  width: 50%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--border-radius);
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+form button {
+  background-color: var(--color-button-bg);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: var(--color-button-hover-bg);
+}
+
+/*  Estilizaçaõ padão para os objetos de pesquisa  usar este como referencia caso queira modificar*/
+/* Estilização para o select */
+select {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background-color: #fff;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+  border-color: var(--color-highlight);
+  box-shadow: 0 0 5px var(--color-highlight);
+  outline: none;
+}
+
+/* Estilização para as opções do dropdown */
+option {
+  font-size: 1rem;
+  padding: 10px;
+  color: var(--color-text);
+  background-color: var(--color-card-bg);
+  border: none;
+}

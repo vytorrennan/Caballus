@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+  {% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/tables.css' %}?{% now "U" %}">{% endblock %}
+
+
+
+{% block title %}
+  Search Samples and Baths
+{% endblock %}
+
+{% block content %}
+  
+  <h1>Samples</h1>
+
+  <form method="post" autocomplete="off" >
+    {% csrf_token %}
+      <label for="search_table">Escolha uma opção:</label>
+        <select id="search_table" name="search_table">
+          <option value="--"> -- </option>
+          <option value="batch">Batch</option>
+          <option value="sampleSoil">Samples</option>
+        </select>
+    <button type="submit">Search</button>
+  </form>
+
+
+  {{ option }}
+  {{ table }}
+
+  {% if option != "--" and  table != None %}
+
+  <h2> Bateladas </h2>
+  {% else %}
+  <p>Opção não encontrada</p>
+  {% endif %}
+  <ul>
+    {% for table  in table %}
+    <li><p>Batelada: </p><strong>{{ table }}</li>
+    {% endfor %}
+  </ul>
+
+
+  {% endblock content %}
+ 
