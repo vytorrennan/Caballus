@@ -31,44 +31,6 @@ body {
 }
 
 /* Navbar */
-
-#navbar {
-  background-color: var(--color-card-bg);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-#navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#navbar li {
-  margin: 0 15px;
-}
-
-#navbar a {
-  color: var(--color-link);
-  text-decoration: none;
-  font-weight: bold;
-  padding: 8px 15px;
-  transition: all 0.3s ease;
-  border-radius: var(--border-radius);
-}
-
-#navbar a:hover {
-  background-color: var(--color-highlight);
-  color: var(--color-card-bg);
-  transform: scale(1.05);
-}
-
 /* Título principal */
 h1 {
   text-align: center;
@@ -145,4 +107,9 @@ option {
   color: var(--color-text);
   background-color: var(--color-card-bg);
   border: none;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
 }
