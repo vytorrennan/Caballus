@@ -2,29 +2,45 @@
 
 {% block head %}
 <style>
-    #content {
-        text-align: center;
-    }
+  
+  .card {
+    min-height: 500px;
+  }
+      /* Ajusta os inputs, selects e textareas para ficarem com largura total e um tamanho maior */
+  .card-body input,
+  .card-body select,
+  .card-body textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+  }
 
-    #content * {
-        font-size: medium;
-        margin: 7px;
-    }
-
-    #content button {
-        width: 5%;
-        min-width: 70px;
-    }
 </style>
 {% endblock%} 
 
 {% block contentLoggin %}
-    <h1>Login</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="bg-primary rounded-4 text-white" >Login</button>
-    </form>
+    <div class="container">
+      <!-- Centraliza o formulário vertical e horizontalmente -->
+      <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-12 col-md-6">
+          <div class="card shadow">
+            <div class="card-header text-center">
+              <h1 class="mb-0">Login</h1>
+            </div>
+            <div class="card-body">
+              <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock%}
 
 {% block script%}

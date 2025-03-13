@@ -45,12 +45,20 @@
           </li>
         </ul>
         <div class="d-flex gap-2">
+        {% if request.user.is_authenticated %}
+            <button type="button" class="btn btn-danger">
+              <a  class="nav-link text-white" href="{% url 'logout' %}">logout</a>
+            </button>
+        {% endif %}
+
+        {% if request.user.is_authenticated == False %}
           <button type="button" class="btn btn-primary">
             <a class="nav-link text-white" href="/account/login">Login</a>
           </button>
           <button type="button" class="btn btn-secondary">
             <a class="nav-link text-white" href="/account/signup">Signup</a>
           </button>
+        {% endif %}
         </div>
       </div>
     </div>
