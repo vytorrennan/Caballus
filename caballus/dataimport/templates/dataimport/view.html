@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+  {% block extra_css %}
+      <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+    </style>
+  {% endblock %}
+
+{% block title %}
+  View analysis
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="padding: 16px">
+    <h1>Analysis Detail: {{ analysis.filename }}</h1>
+    <p><strong>Analysis Date:</strong> {{ analysis.analysis_date }}</p>
+    <p><strong>Calibration Mode:</strong> {{ analysis.calibration_mode }}</p>
+
+    <h2>Elements</h2>
+    <ul>
+        {% for element in analysis.elements.all %}
+            <li>{{ element }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Samples</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Label</th>
+                <th>Concentration</th>
+                <th>RSD Percentage</th>
+                <th>Mean Abs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sample in analysis.samples.all %}
+                <tr>
+                    <td>{{ sample.label }}</td>
+                    <td>{{ sample.concentration }}</td>
+                    <td>{{ sample.rsd_percentage }}</td>
+                    <td>{{ sample.mean_abs }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{% url 'index' %}">Back to Analysis List</a>
+    </div>
+{% endblock content %}

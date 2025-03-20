@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+  {% block extra_css %}
+      <style>
+        .custom-file-upload {
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+    </style>
+  {% endblock %}
+
+{% block title %}
+  Imported analyses
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="padding: 16px">
+    <h1>Imported analyses</h1>
+
+    <form method="post" action="{% url 'upload' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file-upload" class="custom-file-upload">
+            Click to upload
+        </label>
+        <input id="file-upload" type="file" name="file" style="display: none;" onchange="this.form.submit()" />
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Elements</th>
+                <th>Analysis Date</th>
+                <th>Calibration Mode</th>
+                <th>Sample count</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for analysis in analysis_files %}
+            <tr>
+                <td>
+                    <a href="{% url 'view' analysis.id %}">
+                        {{ analysis.filename }}
+                    </a>
+                </td>
+                <td>
+                    {% for element in analysis.elements.all %}
+                        * {{ element }} <br>
+                    {% endfor %}
+                </td>
+                <td>{{ analysis.analysis_date }}</td>
+                <td>{{ analysis.calibration_mode }}</td>
+                <td>{{ analysis.samples.count }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock content %}
