@@ -27,15 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8jid8qr6b*yldidh++uxwc(1da42fd7c9(jfd=5!!x-p1_7o6k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
-ALLOWED_HOSTS = [] # Application definition 
-INSTALLED_APPS = [ 
-    'django.contrib.admin', 
-    'django.contrib.auth', 
-    'django.contrib.contenttypes', 
-    'django.contrib.sessions', 
-    'django.contrib.messages', 
+DEBUG = True
+ALLOWED_HOSTS = [] # Application definition
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dataimport',
     'loginSystem',
     'soilcalc',
 ]
