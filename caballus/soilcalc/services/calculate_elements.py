@@ -1,4 +1,5 @@
 #Cálculo das células pertecentes a cálculos escondidos 
+from soilcalc.services.factor_correction import calculate_factor
 import math
 
 
@@ -86,7 +87,74 @@ def calculaCa(bateladaCa_branco, batelada_valor ):
     try:
         resultado = (((batelada_valor - bateladaCa_branco) * (50*10))/(5*1*200))
         return resultado
+    except ValueError:
+        return None
+    
+
+#AH18(Mg) - Para Batelada Branco
+def calculaMg_branco(bateladaMg_branco):    
+    try:
+        resultado = ((bateladaMg_branco * (50*10))/(5*1*120))
+        return resultado
     except:
         return None
     
+    
+#AH19(Mg) - Para Batelada Testemunha
+def calculaMg(bateladaMg_branco, batelada_valor):    
+    try:
+        resultado = (((batelada_valor - bateladaMg_branco) * (50*10))/(5*1*120))
+        return resultado
+    except:
+        return None
+
+#AI18(Al) - Para Batelada Branco
+def calculaAl_branco(bateladaAl_branco):    
+    try:
+        resultado = ((bateladaAl_branco * (0.025*50*100))/(25*5))
+        return resultado
+    except:
+        return None
+    
+    
+#AI19(Al) - Para Batelada Testemunha
+def calculaAl(bateladaAl_branco, batelada_valor):    
+    try:
+        resultado = (((batelada_valor - bateladaAl_branco) * (0.025*50*100))/(25*5))
+        return resultado
+    except:
+        return None
+    
+    
+#NÃO EXISTE BATELADA BRANCO PARA H+Al
+
+#AJ19(H+Al) - Para Batelada Testemunha
+def calculaHAl(batelada_valor):    
+    try:
+        resultado = 2.73**(8.062906 - 1.111044*batelada_valor)
+        return resultado
+    except:
+        return None
+    
+    
+#L18(B) - Para Batelada Branco
+def calculaB_branco(bateladaB_branco,testemunha, valor_referencia):
+    
+    factor = calculate_factor(testemunha, valor_referencia)
+    try:
+        resultado = ((bateladaB_branco * factor * 20 * 6)/(10 * 4))
+        return resultado
+    except:
+        return None
+
+
+#L19(B) - Para Batelada Testemunha
+def calculaB(bateladaB_branco, batelada_valor, testemunha, valor_referencia):
+    factor = calculate_factor(testemunha, valor_referencia)
+    try:
+        resultado = (((batelada_valor - bateladaB_branco) * factor * 20 * 6)/(10 * 4))
+        return resultado
+    except:
+        return None
+
 
