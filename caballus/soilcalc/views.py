@@ -34,27 +34,3 @@ def view_sample(request):
 
     return render(request, "soilcalc/index.html", context)
 
-
-def search(request):
-    option = None
-    table = None
-    if request.method == 'POST':
-        option = request.POST.get('search_table')
-    
-    # if not option.isidentifier():
-    #    return JsonResponse({'error': 'Nome de tabela inválido'}, status=400)
-    
-    if option == "batch":
-        batches = batch.objects.all()
-        
-        table = [batch.id for batch in batches]
-
-
-    context = {
-        'option': option,
-        'table': table,
-
-    }
-    return render(request, "soilcalc/index.html", context)
-
-
