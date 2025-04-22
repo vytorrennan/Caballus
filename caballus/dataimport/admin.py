@@ -4,6 +4,6 @@ from dataimport.models import AnalysisFile, Sample, Element
 
 # Register your models here.
 
-admin.register(AnalysisFile)
-admin.register(Element)
-admin.register(Sample)
+admin.site.register(AnalysisFile)
+admin.site.register(Element)
+admin.site.register(Sample)
