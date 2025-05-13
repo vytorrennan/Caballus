@@ -22,4 +22,5 @@ urlpatterns = [
     path('account/', include("loginSystem.urls")),
     path('soilcalc/', include("soilcalc.urls")),
     path('dataimport/', include("dataimport.urls")),
+    path('submissions/', include("submissions.urls")),
 ]
