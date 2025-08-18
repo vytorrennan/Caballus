@@ -65,5 +65,16 @@ class SubmissionSample(models.Model):
         null=True, blank=True
     )
 
+    status = models.BooleanField(
+        null=True,
+        default=None,
+        verbose_name="status"
+    )
+
     def __str__(self):
-        return f"Submissão #{self.pk}"
+        return ( f"Submissão #{self.pk} – "
+            f"Água Físico-Química: {self.agua_fisico_quimica} ({self.num_agua_fisico_quimica}), "
+            f"Água Microbiológico: {self.agua_microbiologico} ({self.num_agua_microbiologico}), "
+            f"Solo Fertilidade Básica: {self.solo_fertilidade_basica} ({self.num_solo_fertilidade_basica}), "
+            f"Solo Fertilidade Completa: {self.solo_fertilidade_completa} ({self.num_solo_fertilidade_completa}), "
+            f"Tecido Vegetal: {self.tecido_vegetal} ({self.num_tecido_vegetal}), " )

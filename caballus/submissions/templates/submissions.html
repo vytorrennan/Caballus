@@ -11,120 +11,134 @@
   .form-check-label  { white-space: nowrap; }   /* impede quebra do nome   */
 
   /* número compacto, largura fixa */
-  .qty-input.form-control {          /* .form-control = Bootstrap */
-    width: 60px !important;          /* força 60 px e ignora width:100% */
-    flex: 0 0 60px;                  /* fixa no flex-box               */
+  .qty-input.form-control {          
+    width: 60px !important;      
+    flex: 0 0 60px;                              
   }
 </style>
 {% endblock %}
 
+
+
+  
 {% block content %}
-<h1 class="mb-4">Formulário de Solicitação de Análise</h1>
+  {% if request.user.is_authenticated %}
+    <h1 class="mb-4">Formulário de Solicitação de Análise</h1>
 
-<form method="post" novalidate>
-  {% csrf_token %}
+    <form method="post" action="{% url 'submit' %}" novalidate>
 
-  {# ---------- TIPOS DE ANÁLISE (1 coluna) ---------- #}
-  <div class="border rounded-3 p-4 mb-4">
-    <h5 class="mb-3">Tipos de Análise</h5>
+      {% csrf_token %}
 
-    <div class="d-flex flex-column gap-3">
+      {# ---------- TIPOS DE ANÁLISE (1 coluna) ---------- #}
+      <div class="border rounded-3 p-4 mb-4">
+        <h5 class="mb-3">Tipos de Análise</h5>
 
-      {# Água – Físico-Química #}
-      <div class="d-flex align-items-center justify-content-between gap-2">
-        <div class="form-check m-0 d-flex align-items-center">
-          {{ form.agua_fisico_quimica }}
-          <label class="form-check-label ms-1" for="{{ form.agua_fisico_quimica.id_for_label }}">
-            Água – Físico-Química
-          </label>
+        <div class="d-flex flex-column gap-3">
+
+          {# Água – Físico-Química #}
+          <div class="d-flex align-items-center justify-content-between gap-2">
+            <div class="form-check m-0 d-flex align-items-center">
+              {{ form.agua_fisico_quimica }}
+              <label class="form-check-label ms-1" for="{{ form.agua_fisico_quimica.id_for_label }}">
+                Água – Físico-Química
+              </label>
+            </div>
+            {{ form.num_agua_fisico_quimica }}
+          </div>
+          {% if form.num_agua_fisico_quimica.errors %}
+            <div class="text-danger small text-end">{{ form.num_agua_fisico_quimica.errors.0 }}</div>
+          {% endif %}
+
+          {# Água – Microbiológico #}
+          <div class="d-flex align-items-center justify-content-between gap-2">
+            <div class="form-check m-0 d-flex align-items-center">
+              {{ form.agua_microbiologico }}
+              <label class="form-check-label ms-1" for="{{ form.agua_microbiologico.id_for_label }}">
+                Água – Microbiológico
+              </label>
+            </div>
+            {{ form.num_agua_microbiologico }}
+          </div>
+          {% if form.num_agua_microbiologico.errors %}
+            <div class="text-danger small text-end">{{ form.num_agua_microbiologico.errors.0 }}</div>
+          {% endif %}
+
+          {# Solo – Fertilidade Básica #}
+          <div class="d-flex align-items-center justify-content-between gap-2">
+            <div class="form-check m-0 d-flex align-items-center">
+              {{ form.solo_fertilidade_basica }}
+              <label class="form-check-label ms-1" for="{{ form.solo_fertilidade_basica.id_for_label }}">
+                Solo – Fert. Básica
+              </label>
+            </div>
+            {{ form.num_solo_fertilidade_basica }}
+          </div>
+          {% if form.num_solo_fertilidade_basica.errors %}
+            <div class="text-danger small text-end">{{ form.num_solo_fertilidade_basica.errors.0 }}</div>
+          {% endif %}
+
+          {# Solo – Fertilidade Completa #}
+          <div class="d-flex align-items-center justify-content-between gap-2">
+            <div class="form-check m-0 d-flex align-items-center">
+              {{ form.solo_fertilidade_completa }}
+              <label class="form-check-label ms-1" for="{{ form.solo_fertilidade_completa.id_for_label }}">
+                Solo – Fert. Completa
+              </label>
+            </div>
+            {{ form.num_solo_fertilidade_completa }}
+          </div>
+          {% if form.num_solo_fertilidade_completa.errors %}
+            <div class="text-danger small text-end">{{ form.num_solo_fertilidade_completa.errors.0 }}</div>
+          {% endif %}
+
+          {# Tecido Vegetal #}
+          <div class="d-flex align-items-center justify-content-between gap-2">
+            <div class="form-check m-0 d-flex align-items-center">
+              {{ form.tecido_vegetal }}
+              <label class="form-check-label ms-1" for="{{ form.tecido_vegetal.id_for_label }}">
+                Tecido Vegetal
+              </label>
+            </div>
+            {{ form.num_tecido_vegetal }}
+          </div>
+          {% if form.num_tecido_vegetal.errors %}
+            <div class="text-danger small text-end">{{ form.num_tecido_vegetal.errors.0 }}</div>
+          {% endif %}
         </div>
-        {{ form.num_agua_fisico_quimica }}
       </div>
-      {% if form.num_agua_fisico_quimica.errors %}
-        <div class="text-danger small text-end">{{ form.num_agua_fisico_quimica.errors.0 }}</div>
-      {% endif %}
 
-      {# Água – Microbiológico #}
-      <div class="d-flex align-items-center justify-content-between gap-2">
-        <div class="form-check m-0 d-flex align-items-center">
-          {{ form.agua_microbiologico }}
-          <label class="form-check-label ms-1" for="{{ form.agua_microbiologico.id_for_label }}">
-            Água – Microbiológico
-          </label>
-        </div>
-        {{ form.num_agua_microbiologico }}
+      {# Observação #}
+      <div class="mb-3">
+        {{ form.content.label_tag }}
+        {{ form.content }}
+        {% if form.content.errors %}
+          <div class="text-danger small">{{ form.content.errors.0 }}</div>
+        {% endif %}
       </div>
-      {% if form.num_agua_microbiologico.errors %}
-        <div class="text-danger small text-end">{{ form.num_agua_microbiologico.errors.0 }}</div>
-      {% endif %}
 
-      {# Solo – Fertilidade Básica #}
-      <div class="d-flex align-items-center justify-content-between gap-2">
-        <div class="form-check m-0 d-flex align-items-center">
-          {{ form.solo_fertilidade_basica }}
-          <label class="form-check-label ms-1" for="{{ form.solo_fertilidade_basica.id_for_label }}">
-            Solo – Fert. Básica
-          </label>
-        </div>
-        {{ form.num_solo_fertilidade_basica }}
-      </div>
-      {% if form.num_solo_fertilidade_basica.errors %}
-        <div class="text-danger small text-end">{{ form.num_solo_fertilidade_basica.errors.0 }}</div>
-      {% endif %}
+      <button class="btn btn-primary w-100" type="submit">Submeter</button>
+    </form>
 
-      {# Solo – Fertilidade Completa #}
-      <div class="d-flex align-items-center justify-content-between gap-2">
-        <div class="form-check m-0 d-flex align-items-center">
-          {{ form.solo_fertilidade_completa }}
-          <label class="form-check-label ms-1" for="{{ form.solo_fertilidade_completa.id_for_label }}">
-            Solo – Fert. Completa
-          </label>
-        </div>
-        {{ form.num_solo_fertilidade_completa }}
-      </div>
-      {% if form.num_solo_fertilidade_completa.errors %}
-        <div class="text-danger small text-end">{{ form.num_solo_fertilidade_completa.errors.0 }}</div>
-      {% endif %}
+    <script>
+      document.querySelectorAll(".form-check-input").forEach(chk => {
+        const num = document.querySelector(`#id_num_${chk.name}`);
+        const toggle = () => {
+          if (num) {
+            num.disabled = !chk.checked;
+            if (!chk.checked) num.value = "";
+          }
+        };
+        chk.addEventListener("change", toggle);
+        toggle();
+      });
+    </script>
 
-      {# Tecido Vegetal #}
-      <div class="d-flex align-items-center justify-content-between gap-2">
-        <div class="form-check m-0 d-flex align-items-center">
-          {{ form.tecido_vegetal }}
-          <label class="form-check-label ms-1" for="{{ form.tecido_vegetal.id_for_label }}">
-            Tecido Vegetal
-          </label>
-        </div>
-        {{ form.num_tecido_vegetal }}
-      </div>
-      {% if form.num_tecido_vegetal.errors %}
-        <div class="text-danger small text-end">{{ form.num_tecido_vegetal.errors.0 }}</div>
-      {% endif %}
-    </div>
-  </div>
-
-  {# Observação #}
-  <div class="mb-3">
-    {{ form.content.label_tag }}
-    {{ form.content }}
-    {% if form.content.errors %}
-      <div class="text-danger small">{{ form.content.errors.0 }}</div>
-    {% endif %}
-  </div>
-
-  <button class="btn btn-primary w-100" type="submit">Submeter</button>
-</form>
-
-<script>
-  document.querySelectorAll(".form-check-input").forEach(chk => {
-    const num = document.querySelector(`#id_num_${chk.name}`);
-    const toggle = () => {
-      if (num) {
-        num.disabled = !chk.checked;
-        if (!chk.checked) num.value = "";
-      }
-    };
-    chk.addEventListener("change", toggle);
-    toggle();
-  });
-</script>
+  {% else %}
+      <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">ERRO!</h4>
+      <p>Você não está logado para acessar esta página.</p>
+      <hr>
+      <p class="mb-0">Volte para outra página de login para continuar usando este recurso.</p>
+    </div>  
+  {% endif %}
 {% endblock %}
