@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Submissão de Amostras{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}?{% now 'U' %}">
+<style>
+  .card-submission { border-radius: 1rem; }
+  .badge-qty { font-weight: 600; }
+  .kv { display:flex; gap:.5rem; align-items:baseline; }
+  .kv .k { color:#6c757d; min-width: 140px; }
+</style>
+{% endblock %}
+
+{% block content %}
+  {% if user.is_staff %}
+
+    {% if messages %}
+      <div class="mb-3">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags|default:'info' }} mb-2" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <h1 class="mb-0">Requisições</h1>
+
+      <!-- Filtro -->
+      <form method="get" class="d-flex align-items-center gap-2" action="{% url 'admin_page' %}">
+        <select name="status" class="form-select" onchange="this.form.submit()">
+          <option value="all" {% if status_param == 'all' %}selected{% endif %}>Todas</option>
+          <option value="pending" {% if status_param == 'pending' %}selected{% endif %}>Pendentes</option>
+          <option value="accepted" {% if status_param == 'accepted' %}selected{% endif %}>Aceitas</option>
+          <option value="rejected" {% if status_param == 'rejected' %}selected{% endif %}>Recusadas</option>
+        </select>
+        <noscript><button class="btn btn-outline-primary">Filtrar</button></noscript>
+      </form>
+    </div>
+
+    <hr class="my-3">
+
+    {% if submissions %}
+      <div class="row g-4">
+        {% for s in submissions %}
+          <div class="col-12">
+            <div class="card shadow-sm card-submission">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start flex-wrap">
+                  <div>
+                    <h5 class="card-title mb-1">
+                      Submissão #{{ s.pk }}
+                      <span class="badge bg-secondary">criada em {{ s.created_at|date:"d/m/Y H:i" }}</span>
+                      {% if s.status == None %}
+                        <span class="badge bg-secondary">Pendente</span>
+                      {% elif s.status %}
+                        <span class="badge bg-success">Aceita</span>
+                      {% else %}
+                        <span class="badge bg-danger">Recusada</span>
+                      {% endif %}
+                    </h5>
+                    <div class="text-muted">
+                      Solicitante: {{ s.user.get_full_name|default:s.user.username|default:"Anônimo" }}
+                    </div>
+                  </div>
+
+                  <div class="mt-3 mt-sm-0 d-flex gap-2">
+                    <form method="post" action="{% url 'submission_accept' s.pk %}">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-success">Aceitar</button>
+                    </form>
+                    <form method="post" action="{% url 'submission_reject' s.pk %}">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-outline-danger">Recusar</button>
+                    </form>
+                    <form method="post" action="{% url 'submission_reset' s.pk %}">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-outline-secondary">Pendente</button>
+                    </form>
+                  </div>
+                </div>
+
+                <hr>
+
+                <div class="mb-3">
+                  <div class="kv">
+                    <div class="k">Observações</div>
+                    <div class="v">{{ s.content|default:"—" }}</div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- ÁGUA -->
+                  <div class="col-md-4 mb-3">
+                    <h6 class="text-uppercase text-muted mb-2">Água</h6>
+                    <ul class="list-group list-group-flush">
+                      {% if s.agua_fisico_quimica %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Físico-Química
+                          <span class="badge bg-primary rounded-pill badge-qty">
+                            {{ s.num_agua_fisico_quimica|default:0 }}
+                          </span>
+                        </li>
+                      {% endif %}
+                      {% if s.agua_microbiologico %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Microbiológico
+                          <span class="badge bg-primary rounded-pill badge-qty">
+                            {{ s.num_agua_microbiologico|default:0 }}
+                          </span>
+                        </li>
+                      {% endif %}
+                      {% if not s.agua_fisico_quimica and not s.agua_microbiologico %}
+                        <li class="list-group-item text-muted">Nenhum exame selecionado</li>
+                      {% endif %}
+                    </ul>
+                  </div>
+
+                  <!-- SOLO -->
+                  <div class="col-md-4 mb-3">
+                    <h6 class="text-uppercase text-muted mb-2">Solo</h6>
+                    <ul class="list-group list-group-flush">
+                      {% if s.solo_fertilidade_basica %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Fertilidade Básica
+                          <span class="badge bg-primary rounded-pill badge-qty">
+                            {{ s.num_solo_fertilidade_basica|default:0 }}
+                          </span>
+                        </li>
+                      {% endif %}
+                      {% if s.solo_fertilidade_completa %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Fertilidade Completa
+                          <span class="badge bg-primary rounded-pill badge-qty">
+                            {{ s.num_solo_fertilidade_completa|default:0 }}
+                          </span>
+                        </li>
+                      {% endif %}
+                      {% if not s.solo_fertilidade_basica and not s.solo_fertilidade_completa %}
+                        <li class="list-group-item text-muted">Nenhum exame selecionado</li>
+                      {% endif %}
+                    </ul>
+                  </div>
+
+                  <!-- TECIDO VEGETAL -->
+                  <div class="col-md-4 mb-3">
+                    <h6 class="text-uppercase text-muted mb-2">Tecido Vegetal</h6>
+                    <ul class="list-group list-group-flush">
+                      {% if s.tecido_vegetal %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Tecido Vegetal
+                          <span class="badge bg-primary rounded-pill badge-qty">
+                            {{ s.num_tecido_vegetal|default:0 }}
+                          </span>
+                        </li>
+                      {% else %}
+                        <li class="list-group-item text-muted">Nenhum exame selecionado</li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info">Nenhuma requisição no momento.</div>
+    {% endif %}
+  {% else %}
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">ERRO!</h4>
+      <p>Você não tem privilégios de administrador para acessar esta página.</p>
+      <hr>
+      <p class="mb-0">Volte para outra página para continuar usando o site.</p>
+    </div>
+  {% endif %}
+{% endblock %}
